@@ -8,6 +8,6 @@ int main() {
 	\\ (barra invertida) imprime uma barra invertida.
 	*/
 
-	printf("Estou funcionando!\n");
+	printf("Alifer\n");
 	return 0;
 }
