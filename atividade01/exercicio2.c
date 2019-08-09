@@ -20,7 +20,7 @@ int main() {
 	
 	/* Teste de aritmetica */
 	printf("Aritmetica com int (+ - * / 3): %d, %d, %d, %d\n", i0+3, i0-3, i0*3, i0/3);
-	printf("Aritmetica com float (+ - * / 3): %f, %f, %f, %f\n", f0+3, f0-3, f0*3, f0/3);
+	printf("Aritmetica com float (+ - * / 3): %.2f, %.2f, %.2f, %.2f\n", f0+3, f0-3, f0*3, f0/3);
 	printf("Aritmetica com char (+ - * / 3): %c, %c, %c, %c\n", c0+3, c0-3, c0*3, c0/3);
 
 	/* Mas, lembre que char eh um tipo inteiro! Entao, o codigo seguinte eh valido: */
