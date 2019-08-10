@@ -1,3 +1,12 @@
+/*
+ * Leia o código-fonte abaixo, correspondente a um trecho do programa 03-condicionais.c.
+ * a) Encontre todas as palavras-chave que você não conhece.
+ * b) Encontre todas as instruções condicionais no programa.
+ * c) Faça uma hipótese sobre o que o programa imprimirá na tela.
+ * d) Compile e execute o programa. Ele imprimiu o que você imaginava?
+ * e) Use chaves { } para modificar o programa de forma que ele execute mais de uma instrução
+ * relacionada a cada avaliação de if(). As chaves { } em C são equivalentes à identação em Python.
+ */
 #include <stdio.h>
 
 int main() {

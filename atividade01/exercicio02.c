@@ -1,3 +1,14 @@
+/*
+ * Leia o código-fonte abaixo, correspondente a um trecho do programa 02-variaveis.c.
+ * a) Encontre todas as palavras-chave que você não conhece.
+ * b) Encontre todas as variáveis que foram declaradas no programa.
+ * c) Encontre todas as operações de atribuição no programa.
+ * d) Faça uma hipótese sobre o que o programa imprimirá na tela.
+ * e) Compile e execute o programa. Ele imprimiu o que você imaginava?
+ * f) Qual é o resultado de uma divisão com inteiros caso o resultado seja uma fração?
+ * g) Por que é possível fazer aritmética com tipos char?
+ */
+
 #include <stdio.h>
 
 int main() {

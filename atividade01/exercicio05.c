@@ -1,3 +1,11 @@
+/*
+ * Leia o código-fonte abaixo, correspondente a um trecho do programa 05-lacos.c.
+ * a) Encontre todas as palavras-chave que você não conhece.
+ * b) Qual é a diferença entre os blocos do..while(), while() e for(;;)?
+ * c) Faça uma hipótese sobre o que o programa faz.
+ * d) Compile e execute o programa. Ele fez que você imaginava?
+ */
+
 #include <stdio.h>
 
 int main() {
