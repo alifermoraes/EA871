@@ -1,4 +1,4 @@
-# EA871
+# EA871 - 2º Semestre 2019
 
 ### Objetivos do Curso
 Ao fim deste curso, os alunos serão capazes de programar em C para microcontroladores, incluindo as
