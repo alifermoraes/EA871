@@ -11,7 +11,7 @@
 #include <stdio.h>
 
 int main() {
-    char c = 0xF3;
+    unsigned char c = 0xF3;
 
     /*
      * c = c & 0x01;
@@ -19,8 +19,8 @@ int main() {
      * c = c | 0x06;
      */
 
-    c &= 0x00;
-    c |= 0x3F;
+    c |= 0xFF;
+    c >>= 2;
 
     printf("%d\n", c);
     return 0;
