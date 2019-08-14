@@ -14,10 +14,8 @@ void procedimento_ref(int *N, int M) {
 }
 
 int main(void) {
-    int i, j;
-
-    i = 0;
-    j = 0;
+    int i = 0;
+    int j = 0;
 
     procedimento_ref(&i, j);
     printf("i = %d, j = %d\n", i, j);
