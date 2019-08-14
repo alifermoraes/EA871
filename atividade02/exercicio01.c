@@ -10,7 +10,7 @@
 
 #include <stdio.h>
 
-void procedimento() {
+void procedimento(void) {
     printf("Ola, mundo! Eu sou um procedimento!\n");
 }
 
@@ -18,7 +18,7 @@ void procedimentoN(int N) {
     printf("Ola, mundo! Eu sou o procedimento %d!\n", N);
 }
 
-int main() {
+int main(void) {
     int i, j;
 
     printf("Procedimentos:\n");
