@@ -20,7 +20,7 @@ typedef Buffer * ptr_buffer;
 void adicionar_buffer(ptr_buffer buffer, char c) {
     int indice = buffer->indice;
 
-    if (indice <= 4) {
+    if (indice < 5) {
         buffer->buffer[indice] = c;
         buffer->indice++;
     }
