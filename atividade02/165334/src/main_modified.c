@@ -5,7 +5,6 @@
  * circular
  */
 
-#include <stdlib.h>
 #include <stdio.h>
 
 /* Estrutura de dados para armazenar o vetor buffer[] e seu índice */
@@ -56,21 +55,23 @@ void imprimir_buffer(ptr_buffer buffer) {
 
 int main(void) {
     char c;
-    ptr_buffer buffer;
+    Buffer buffer = {0, };
+    ptr_buffer ptr_buffer;
 
-    buffer = malloc(sizeof(Buffer));
+
+    ptr_buffer = &buffer;
 
     do {
         scanf("%c", &c);
 
         if (c >= 48 && c <= 57) { /* Checa se c é um dígito entre 0 e 9 */
-        adicionar_buffer(buffer, c);
-        imprimir_buffer(buffer);
+        adicionar_buffer(ptr_buffer, c);
+        imprimir_buffer(ptr_buffer);
         } else if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122)) { /* Checa se c é uma letra a-z ou A-Z */
-        remover_buffer(buffer);
-        imprimir_buffer(buffer);
+        remover_buffer(ptr_buffer);
+        imprimir_buffer(ptr_buffer);
         }
     } while (c != '\n');
 
-    return EXIT_SUCCESS;
+    return 0;
 }
