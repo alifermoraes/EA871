@@ -14,11 +14,14 @@
  * aceso.
  */
 
-#include <stdint.h>
+#include <avr/io.h>
+#include <stdint.h>    
+
+uint8_t * ptr_portc = (uint8_t *) 0x28;
+uint8_t * ptr_ddrc = (uint8_t *) 0x27;
 
 int main(void) {
-    uint8_t * ptr_portc = (uint8_t *) 0x28;
-    uint8_t * ptr_ddrc = (uint8_t *) 0x07;
+
 
     /* Seta o bit 0 do portc como saida */
     *ptr_ddrc |= 0x01;
