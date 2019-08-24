@@ -17,8 +17,8 @@
 #include <stdint.h>    
 
 /* Ponteiros para regioes de memoria dos ports que serao utilizados */ 
-uint8_t * ptr_portc = (uint8_t *) 0x28;
-uint8_t * ptr_ddrc = (uint8_t *) 0x27;
+uint8_t *ptr_portc = (uint8_t *) 0x28,
+        *ptr_ddrc = (uint8_t *) 0x27;
 
 int main(void) {
     *ptr_ddrc |= 0x01;     /* Seta o bit 0 do portc como saida */
