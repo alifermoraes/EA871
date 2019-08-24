@@ -14,20 +14,16 @@
  * aceso.
  */
 
-#include <avr/io.h>
 #include <stdint.h>    
 
+/* Ponteiros para regioes de memoria dos ports que serao utilizados */ 
 uint8_t * ptr_portc = (uint8_t *) 0x28;
 uint8_t * ptr_ddrc = (uint8_t *) 0x27;
 
 int main(void) {
-
-
-    /* Seta o bit 0 do portc como saida */
-    *ptr_ddrc |= 0x01;
+    *ptr_ddrc |= 0x01;     /* Seta o bit 0 do portc como saida */
 
     while (1) {
-        /* Seta o bit 0 do portc em nivel logico alto */
-        *ptr_portc |= 0x01;
+        *ptr_portc |= 0x01; /* Seta o bit 0 do portc em nivel logico alto */
     }
 }
