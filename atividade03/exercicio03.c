@@ -23,7 +23,6 @@ uint8_t pin_d7_mask = 0x80,
 /* Variaveis para monitorar o estado do botao */
 uint8_t portd_actual_state = 0x00,
         portd_previous_state,
-        state_flag = 0x00;
 
 int main(void) {
 	*ptr_ddrc |= 0x01; /* Seta o bit 0 do portc como saida */
@@ -34,18 +33,12 @@ int main(void) {
 		portd_actual_state = *ptr_pind & pin_d7_mask;
 
 		if (portd_actual_state != portd_previous_state) {
-		    _delay_ms(100);
+		    _delay_ms(100); /* Correcao de bouncing do botao */
 		    portd_actual_state = *ptr_pind & pin_d7_mask;
 
 		    if (!portd_actual_state) {
-			if(!state_flag) {
-			    *ptr_portc |= pin_c0_mask;
-			} else {
-			    *ptr_portc &= pin_c0_mask;
+			    *ptr_portc ^= pin_c0_mask; /* Muda o estado do LED */
 			}
-
-			state_flag ^= 0x01;
-		    }
 		}
 	}
 }
