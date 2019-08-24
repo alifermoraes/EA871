@@ -7,27 +7,45 @@
  * pressionado, o LED acende.
  */
 
+#include <util/delay.h>
 #include <stdint.h>
 
 /* Ponteiros para regioes de memoria dos ports que serao utilizados */
-uint8_t * ptr_portc = (uint8_t *) 0x28;
-uint8_t * ptr_ddrc = (uint8_t *) 0x27;
-uint8_t * ptr_pind = (uint8_t *) 0x29;
-uint8_t * ptr_ddrd = (uint8_t *) 0x2A;
+uint8_t *ptr_portc = (uint8_t *) 0x28,
+        *ptr_ddrc = (uint8_t *) 0x27,
+        *ptr_pind = (uint8_t *) 0x29,
+        *ptr_ddrd = (uint8_t *) 0x2A;
 
 /* Mascaras */
-uint8_t pin_d7_mask = 0x80;
-uint8_t pin_c0_mask = 0x01;
+uint8_t pin_d7_mask = 0x80,
+        pin_c0_mask = 0x01;
+
+/* Variaveis para monitorar o estado do botao */
+uint8_t portd_actual_state = 0x00,
+        portd_previous_state,
+        state_flag = 0x00;
 
 int main(void) {
 	*ptr_ddrc |= 0x01; /* Seta o bit 0 do portc como saida */
 	*ptr_ddrd &= 0x7F; /* Seta o bit 7 do portd como entrada */
 	
 	while (1) {
-		if (*ptr_pind & pin_d7_mask) {
-			*ptr_portc &= ~pin_c0_mask; /* Apaga o LED */
-		} else {
-			*ptr_portc |= pin_c0_mask; /* Acende o LED */
-		}
+        portd_previous_state = portd_actual_state;
+        portd_actual_state = *ptr_pind & pin_d7_mask;
+
+        if (portd_actual_state != portd_previous_state) {
+            _delay_ms(100);
+            portd_actual_state = *ptr_pind & pin_d7_mask;
+
+            if (!portd_actual_state) {
+                if(!state_flag) {
+                    *ptr_portc |= pin_c0_mask;
+                } else {
+                    *ptr_portc &= pin_c0_mask;
+                }
+
+                state_flag ^= 0x01;
+            }
+        }
 	}
 }
