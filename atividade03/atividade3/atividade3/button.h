@@ -17,11 +17,11 @@
 #define BUTTON_H_
 
 /**
- * Define os bits do port que serao acionados para cada digito do display de
- * sete segmentos
+ * Define os bits do port que serao acionados para formar cada digito no
+ * display de sete segmentos. bit1 = a, bit2 = b, ... , bit 7 = g
  */
 #define ZERO    0x7E
-#define ONE     0b0C
+#define ONE     0x0C
 #define TWO     0xB6
 #define THREE   0x9E
 #define FOUR    0xCC
@@ -31,11 +31,13 @@
 #define EIGHT   0xFE
 #define NINE    0xDE
 
+#define TRUE 1
+
 /**
  * Define um novo nome para ponteiros do tipo uint8_t
  * uint8_t é um tipo de dado de 8 bits (unsigned char)
  */
-typedef uint8_t* uint8_ptr;
+typedef uint8_t * uint8_ptr;
 
 int is_button_pressed(uint8_ptr, uint8_t);
 

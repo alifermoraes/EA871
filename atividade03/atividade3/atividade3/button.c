@@ -21,17 +21,19 @@ int is_button_pressed(uint8_ptr pin_button, uint8_t MASK) {
 	uint8_t actual_state = 0x00,
 			previous_state;
 
-	previous_state = actual_state;
-	actual_state = pin_button & MASK;
-
-	if (actual_state != previous_state) {
-		_delay_ms(100);
+	while (TRUE) {
+		previous_state = actual_state;
 		actual_state = pin_button & MASK;
 
-		if (!actual_state) {
-			return 1;
-		} else {
-			return 0;
+		if (actual_state != previous_state) {
+			_delay_ms(100);
+			actual_state = pin_button & MASK;
+
+			if (!actual_state) {
+				return 1;
+			} else {
+				return 0;
+			}
 		}
 	}
 } 
