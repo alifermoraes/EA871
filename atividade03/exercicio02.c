@@ -15,31 +15,28 @@
  * desejado.
  */
 
-#include <avr/io.h>
 #include <stdint.h>
 
+/* Ponteiros para regioes de memoria dos ports que serao utilizados */
 uint8_t * ptr_portc = (uint8_t *) 0x28;
 uint8_t * ptr_ddrc = (uint8_t *) 0x27;
 uint8_t * ptr_pind = (uint8_t *) 0x29;
 uint8_t * ptr_ddrd = (uint8_t *) 0x2A;
+
+/* Mascaras */
 uint8_t pin_d7_mask = 0x80;
 uint8_t pin_c0_mask = 0x01;
-uint8_t portd_state;
 
 int main(void) {
 
-	/* Seta o bit 0 do portc como saida */
-	*ptr_ddrc |= 0x01;
-	/* Seta o bit 7 do portd como entrada */
-	*ptr_ddrd &= 0x7F;
+	*ptr_ddrc |= 0x01; /* Seta o bit 0 do portc como saida */
+	*ptr_ddrd &= 0x7F; /* Seta o bit 7 do portd como entrada */
 	
-
-
 	while (1) {
 		if (*ptr_pind & pin_d7_mask) {
-			*ptr_portc &= ~pin_c0_mask;
+			*ptr_portc &= ~pin_c0_mask; /* Apaga o LED */
 		} else {
-			*ptr_portc |= pin_c0_mask;
+			*ptr_portc |= pin_c0_mask; /* Acende o LED */
 		}
 	}
 }
