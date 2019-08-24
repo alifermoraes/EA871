@@ -28,7 +28,6 @@ uint8_t pin_d7_mask = 0x80;
 uint8_t pin_c0_mask = 0x01;
 
 int main(void) {
-
 	*ptr_ddrc |= 0x01; /* Seta o bit 0 do portc como saida */
 	*ptr_ddrd &= 0x7F; /* Seta o bit 7 do portd como entrada */
 	
