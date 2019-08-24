@@ -18,14 +18,14 @@
 #include <stdint.h>
 
 /* Ponteiros para regioes de memoria dos ports que serao utilizados */
-uint8_t * ptr_portc = (uint8_t *) 0x28;
-uint8_t * ptr_ddrc = (uint8_t *) 0x27;
-uint8_t * ptr_pind = (uint8_t *) 0x29;
-uint8_t * ptr_ddrd = (uint8_t *) 0x2A;
+uint8_t *ptr_portc = (uint8_t *) 0x28,
+		*ptr_ddrc = (uint8_t *) 0x27,
+		*ptr_pind = (uint8_t *) 0x29,
+		*ptr_ddrd = (uint8_t *) 0x2A;
 
 /* Mascaras */
-uint8_t pin_d7_mask = 0x80;
-uint8_t pin_c0_mask = 0x01;
+uint8_t pin_d7_mask = 0x80,
+		pin_c0_mask = 0x01;
 
 int main(void) {
 	*ptr_ddrc |= 0x01; /* Seta o bit 0 do portc como saida */
