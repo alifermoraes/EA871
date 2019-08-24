@@ -14,6 +14,7 @@
  */ 
 
 #include <avr/io.h>
+#include <stdint.h>
 #include "button.h"
 
 int main(void)

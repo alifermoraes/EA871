@@ -37,6 +37,6 @@
  */
 typedef uint8_t* uint8_ptr;
 
-void button(uint8_ptr);
+int is_button_pressed(uint8_ptr, uint8_t);
 
 #endif /* BUTTON_H_ */
