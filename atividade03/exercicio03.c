@@ -30,22 +30,22 @@ int main(void) {
 	*ptr_ddrd &= 0x7F; /* Seta o bit 7 do portd como entrada */
 	
 	while (1) {
-        portd_previous_state = portd_actual_state;
-        portd_actual_state = *ptr_pind & pin_d7_mask;
+		portd_previous_state = portd_actual_state;
+		portd_actual_state = *ptr_pind & pin_d7_mask;
 
-        if (portd_actual_state != portd_previous_state) {
-            _delay_ms(100);
-            portd_actual_state = *ptr_pind & pin_d7_mask;
+		if (portd_actual_state != portd_previous_state) {
+		    _delay_ms(100);
+		    portd_actual_state = *ptr_pind & pin_d7_mask;
 
-            if (!portd_actual_state) {
-                if(!state_flag) {
-                    *ptr_portc |= pin_c0_mask;
-                } else {
-                    *ptr_portc &= pin_c0_mask;
-                }
+		    if (!portd_actual_state) {
+			if(!state_flag) {
+			    *ptr_portc |= pin_c0_mask;
+			} else {
+			    *ptr_portc &= pin_c0_mask;
+			}
 
-                state_flag ^= 0x01;
-            }
-        }
+			state_flag ^= 0x01;
+		    }
+		}
 	}
 }
