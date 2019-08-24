@@ -16,10 +16,10 @@
 #include <stdint.h>
 #include "button.h"
 
-uint8_ptr portd = 0x2B,
-          ddrd = 0x2A,
-          pinc = 0x26,
-          ddrc = 0x27;
+uint8_ptr portd = (uint8_ptr) 0x2B,
+          ddrd = (uint8_ptr) 0x2A,
+          pinc = (uint8_ptr) 0x26,
+          ddrc = (uint8_ptr) 0x27;
 
 uint8_t pin_c0_mask = 0x01;
 
