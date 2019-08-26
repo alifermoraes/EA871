@@ -7,6 +7,8 @@
  * pressionado, o LED acende.
  */
 
+#define F_CPU 16000000UL
+
 #include <util/delay.h>
 #include <stdint.h>
 
@@ -22,7 +24,7 @@ uint8_t pin_d7_mask = 0x80,
 
 /* Variaveis para monitorar o estado do botao */
 uint8_t portd_actual_state = 0x00,
-        portd_previous_state,
+        portd_previous_state;
 
 int main(void) {
 	*ptr_ddrc |= 0x01; /* Seta o bit 0 do portc como saida */
