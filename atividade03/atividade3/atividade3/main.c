@@ -13,76 +13,36 @@
  * valor 9, ela deve ser reiniciada a partir de 0.
  */ 
 
-#include <stdint.h>
 #include "button.h"
+#include <stdint.h>
 
-uint8_ptr portd = (uint8_ptr) 0x2B,
+uint8_ptr ucsr0b = (uint8_ptr) 0xC1,
+		  portd = (uint8_ptr) 0x2B,
           ddrd = (uint8_ptr) 0x2A,
           pinc = (uint8_ptr) 0x26,
           ddrc = (uint8_ptr) 0x27;
 
-uint8_t pin_c0_mask = 0x01;
+uint8_t pin_c0_mask = 0x01,
+		actual_state = 0x00,
+		previous_state;
 
-int counter = 0,
-    digit;
+int counter = 0;
 
 int main(void)
 {
+	*ucsr0b &= 0xF7; /* Desabilita a funcao UART do pino 1 do port D (TX) */
     *ddrd |= 0xFE; /* Seta os pinos 1-7 do portd como saidas */
-    *ddrc &= 0xFE ; /* Seta o pino 0 do portc como entrada */
+    *ddrc &= 0xFE; /* Seta o pino 0 do portc como entrada */
+
+    /* Inicia com o display exibindo o valor zero */
+    *portd &= 0x00;
+    *portd |= ZERO;
 
     while (TRUE)
     {
-        if (is_button_pressed(pinc, pin_c0_mask)) {
+        if (is_button_pressed(pin_c0_mask, pinc)) {
             counter++;
-            digit = counter % 10;
-
-            switch (digit)
-            {
-            case 0:
-                *portd &= 0x00;
-                *portd |= ZERO;
-                break;
-            case 1:
-                *portd &= 0x00;
-                *portd |= ONE;
-                break;
-            case 2:
-                *portd &= 0x00;
-                *portd |= TWO;
-                break;
-            case 3:
-                *portd &= 0x00;
-                *portd |= THREE;
-                break;
-            case 4:
-                *portd &= 0x00;
-                *portd |= FOUR;
-                break;
-            case 5:
-                *portd &= 0x00;
-                *portd |= FIVE;
-                break;
-            case 6:
-                *portd &= 0x00;
-                *portd |= SIX;
-                break;
-            case 7:
-                *portd &= 0x00;
-                *portd |= SEVEN;
-                break;
-            case 8:
-                *portd &= 0x00;
-                *portd |= EIGHT;
-                break;
-            case 9:
-                *portd &= 0x00;
-                *portd |= NINE;
-                break;
-            default:
-                break;
-            }
+            display_digit((counter % 10), portd);
         }
     }
 }
-

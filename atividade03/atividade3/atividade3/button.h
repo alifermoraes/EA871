@@ -16,6 +16,8 @@
 #ifndef BUTTON_H_
 #define BUTTON_H_
 
+#define F_CPU 16000000
+
 /**
  * Define os bits do port que serao acionados para formar cada digito no
  * display de sete segmentos. bit1 = a, bit2 = b, ... , bit 7 = g
@@ -40,5 +42,6 @@
 typedef uint8_t * uint8_ptr;
 
 int is_button_pressed(uint8_ptr, uint8_t);
+void display_digit(int, uint8_ptr);
 
 #endif /* BUTTON_H_ */

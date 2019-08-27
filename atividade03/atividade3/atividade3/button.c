@@ -13,24 +13,22 @@
  * valor 9, ela deve ser reiniciada a partir de 0.
  */
 
-#define F_CPU 16000000
-
-#include <util/delay.h>
-#include <stdint.h>
 #include "button.h"
+#include <stdint.h>
+#include <util/delay.h>
 
 /**
  * Funcao que checa se um dado botao foi pressionado.
  * 
  * Parametros:
- *  - pin_button: ponteiro contendo o endereco do PIN do port no qual o botao
+ * - MASK: mascara referente ao pino no qual o botao esta conectado.
+ * - pin_button: ponteiro contendo o endereco do PIN do port no qual o botao
  * esta conectado.
- *  - MASK: mascara referente ao pino no qual o botao esta conectado
  * 
- * Retorno: retorna 1 se o botao foi pressionado e 0 caso contrario.
+ * Retorno: retorna 1 se o botao foi pressionado.
  */
 
-int is_button_pressed(uint8_ptr pin_button, uint8_t MASK) {
+int is_button_pressed(uint8_t MASK, uint8_ptr pin_button) {
 	uint8_t actual_state = 0x00,
 			previous_state;
 
@@ -39,14 +37,69 @@ int is_button_pressed(uint8_ptr pin_button, uint8_t MASK) {
 		actual_state = *pin_button & MASK;
 
 		if (actual_state != previous_state) {
-			_delay_ms(100);
+			_delay_ms(50);
 			actual_state = *pin_button & MASK;
 
 			if (!actual_state) {
-				return 1;
-			} else {
-				return 0;
+				return TRUE;
 			}
 		}
 	}
-} 
+}
+
+/**
+ * Funcao que exibe no display de 7 segmentos o digito correspondente
+ * 
+ * Parametros:
+ * - digit: digito que sera exibido no display.
+ * - port: ponteiro para o endereco do port onde os leds do display estao
+ * conectados
+ */
+void display_digit(int digit, uint8_ptr port) {
+	        switch (digit) {
+        case 0:
+            *port &= 0x00;
+            *port |= ZERO;
+            break;
+        case 1:
+            *port &= 0x00;
+            *port |= ONE;
+            break;
+        case 2:
+            *port &= 0x00;
+            *port |= TWO;
+            break;
+        case 3:
+            *port &= 0x00;
+            *port |= THREE;
+            break;
+        case 4:
+            *port &= 0x00;
+            *port |= FOUR;
+            break;
+        case 5:
+            *port &= 0x00;
+            *port |= FIVE;
+            break;
+        case 6:
+            *port &= 0x00;
+            *port |= SIX;
+            break;
+        case 7:
+            *port &= 0x00;
+            *port |= SEVEN;
+            break;
+        case 8:
+            *port &= 0x00;
+            *port |= EIGHT;
+            break;
+        case 9:
+            *port &= 0x00;
+            *port |= NINE;
+            break;
+        default:
+            *port &= 0x00;
+            *port |= ZERO;
+            break;
+        }
+}
