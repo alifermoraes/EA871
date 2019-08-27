@@ -13,26 +13,27 @@
  * valor 9, ela deve ser reiniciada a partir de 0.
  */ 
 
-#ifndef BUTTON_H_
-#define BUTTON_H_
+#ifndef DIGITS_H_
+#define DIGITS_H_
 
-#define F_CPU 16000000
+#include <stdint.h>
 
 /**
  * Define os bits do port que serao acionados para formar cada digito no
  * display de sete segmentos. bit1 = a, bit2 = b, ... , bit 7 = g
  */
-#define ZERO    0x7E
-#define ONE     0x0C
-#define TWO     0xB6
-#define THREE   0x9E
-#define FOUR    0xCC
-#define FIVE    0xDA
-#define SIX     0xFA
-#define SEVEN   0x0E
-#define EIGHT   0xFE
-#define NINE    0xDE
+#define ZERO    0x7E /* 0111 1110 - segmentos do display: a, b, c, d, e, f */
+#define ONE     0x0C /* 0000 1100 - segmentos do display: b, c */
+#define TWO     0xB6 /* 1011 0110 - segmentos do display: a, b, d, e, g */
+#define THREE   0x9E /* 1001 1110 - segmentos do display: a, b, c, d, g */
+#define FOUR    0xCC /* 1100 1100 - segmentos do display: b, c, f, g */
+#define FIVE    0xDA /* 1101 1010 - segmentos do display: a, c, d, f, g */
+#define SIX     0xFA /* 1111 1010 - segmentos do display: a, c, d, e, f, g */
+#define SEVEN   0x0E /* 0000 1110 - segmentos do display: a, b, c */
+#define EIGHT   0xFE /* 1111 1110 - segmentos do display: a, b, c, d, e, f, g */
+#define NINE    0xDE /* 1101 1110 - segmentos do display: a, b, c, d, f, g */
 
+#define F_CPU 16000000
 #define TRUE 1
 
 /**
@@ -41,7 +42,6 @@
  */
 typedef uint8_t * uint8_ptr;
 
-int is_button_pressed(uint8_ptr, uint8_t);
 void display_digit(int, uint8_ptr);
 
-#endif /* BUTTON_H_ */
+#endif /* DIGITS_H_ */

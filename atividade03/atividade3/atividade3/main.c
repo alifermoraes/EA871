@@ -13,9 +13,10 @@
  * valor 9, ela deve ser reiniciada a partir de 0.
  */ 
 
-#include "button.h"
-#include <stdint.h>
+#include "digits.h"
+#include <util/delay.h>
 
+/* Ponteiros para os enderecos que sera usados */
 uint8_ptr ucsr0b = (uint8_ptr) 0xC1,
 		  portd = (uint8_ptr) 0x2B,
           ddrd = (uint8_ptr) 0x2A,
@@ -26,23 +27,37 @@ uint8_t pin_c0_mask = 0x01,
 		actual_state = 0x00,
 		previous_state;
 
-int counter = 0;
-
 int main(void)
 {
 	*ucsr0b &= 0xF7; /* Desabilita a funcao UART do pino 1 do port D (TX) */
     *ddrd |= 0xFE; /* Seta os pinos 1-7 do portd como saidas */
     *ddrc &= 0xFE; /* Seta o pino 0 do portc como entrada */
 
-    /* Inicia com o display exibindo o valor zero */
-    *portd &= 0x00;
-    *portd |= ZERO;
+    /* Inicia o display exibindo o valor zero */
+    *portd &= 0x01; /* Apaga os segmentos do display */
+    *portd |= ZERO; /* Seta os bits dos segmentos referentes ao digito 0 */
+	
+	int counter = 0;
 
     while (TRUE)
     {
-        if (is_button_pressed(pin_c0_mask, pinc)) {
-            counter++;
-            display_digit((counter % 10), portd);
-        }
-    }
+	    previous_state = actual_state;
+	    actual_state = *pinc & pin_c0_mask;
+		
+		/**
+		 * Se o estado anterior for diferente do estado atual, quer dizer que
+		 * o botao foi pressionado
+		 */
+	    if (actual_state != previous_state) {
+		    /* Debouncing */
+			_delay_ms(50);
+		    actual_state = *pinc & pin_c0_mask;
+
+			/* Se o botao foi realmente pressionado, incrementa a contagem */
+		    if (!actual_state) {
+			    counter++;
+			    display_digit((counter % 10), portd);
+		    }
+	    }
+	}	
 }
