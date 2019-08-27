@@ -35,7 +35,7 @@ int main(void) {
 		portd_actual_state = *ptr_pind & pin_d7_mask;
 
 		if (portd_actual_state != portd_previous_state) {
-		    _delay_ms(100); /* Correcao de bouncing do botao */
+		    _delay_ms(50); /* Correcao de bouncing do botao */
 		    portd_actual_state = *ptr_pind & pin_d7_mask;
 
 		    if (!portd_actual_state) {

@@ -11,17 +11,26 @@
 #include <stdio.h>
 
 int main() {
-    unsigned char c = 0xF3;
+    unsigned char c1 = 0xF3;
+    char c2 = 0xF3;
 
     /*
      * c = c & 0x01;
      * c = c << 3;
      * c = c | 0x06;
      */
+    printf("c1 = %2x\n", c1);
+    printf("c2 = %2x\n", c2);
+    c1 |= 0xFF;
+    c1 >>= 2;
 
-    c |= 0xFF;
-    c >>= 2;
+    c2 |= 0xFF;
+    c2 <<= 2;
 
-    printf("%d\n", c);
+    printf("c1 = %2x\n", c1);
+    printf("c2 = %2x\n", c2);
+
+    printf("%d\n", c1);
+    printf("%d\n", c2);
     return 0;
 }
