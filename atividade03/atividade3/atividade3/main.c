@@ -18,7 +18,7 @@
 
 /* Ponteiros para os enderecos que sera usados */
 uint8_ptr ucsr0b = (uint8_ptr) 0xC1,
-		  portd = (uint8_ptr) 0x2B,
+	  portd = (uint8_ptr) 0x2B,
           ddrd = (uint8_ptr) 0x2A,
           pinc = (uint8_ptr) 0x26,
           ddrc = (uint8_ptr) 0x27;
