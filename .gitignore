@@ -1,5 +1,8 @@
 # Compiled file
 *.o
 
+# VSCode json config
+.vscode/
+
 # Zip file
 *.zip
