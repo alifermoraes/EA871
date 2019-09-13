@@ -29,6 +29,7 @@ JMP main
 
 .ORG 0x0034
 main:
+	/* Seta o portb como saida */
 	LDI B0, 0x01
 	OUT DDRB, B0
 

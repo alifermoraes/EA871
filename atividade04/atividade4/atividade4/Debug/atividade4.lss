@@ -1,10 +1,10 @@
 
-AVRASM ver. 2.2.7  C:\Users\ea871\Desktop\atividade4\atividade4\main.asm Thu Sep 12 15:18:17 2019
+AVRASM ver. 2.2.7  C:\Users\Alifer\Desktop\projects\Unicamp\EA871\atividade04\atividade4\atividade4\main.asm Fri Sep 13 11:03:37 2019
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\avrasm\inc\m328pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\avrasm\inc\m328pdef.inc'
                                  
-                                 ;
+                                 /**
                                  
                                  ;***** Created: 2011-02-09 12:03 ******* Source: ATmega328P.xml **********
                                  ;*************************************************************************
@@ -985,26 +985,37 @@ AVRASM ver. 2.2.7  C:\Users\ea871\Desktop\atividade4\atividade4\main.asm Thu Sep
                                  
                                  ; ***** END OF FILE ******************************************************
                                  
-                                 ; atividade4.asm
-                                 ;
-                                 ; Created: 12/09/2019 14:12:07
-                                 ; Author : ea871
-                                 ;
-                                 
-                                 
-                                 ; Replace with your application code
-                                 .CSEG
+                                  * Atividade03 - GPIO
+                                  *
+                                  * Alifer Willians de Moraes
+                                  * RA: 165334
+                                  *
+                                  * Nesta atividade, teremos o cuidado de preparar a sub-rotina de atraso de tal maneira que ela
+                                  * possa ser futuramente incorporada a projetos desenvolvidos em linguagem C sem maiores
+                                  * dificuldades. Por isso, seguiremos a convenção de passagem de parâmetros adotada pelo compilador
+                                  * C do Atmel Studio. No caso, a sub-rotina deve receber como entrada um valor de 16 bits (sem
+                                  * sinal) que especifica o tempo de atraso em milissegundos (e.g., um valor igual a 1000 deve levar
+                                  * a rotina a produzir um atraso de 1 segundo). Este valor deve ser recebido pela sub-rotina
+                                  * através do par de registradores r25:r24.
+                                  * Por fim, escreva um programa em Assembly que faça com que um LED pisque com um período de 1
+                                  * segundo. Ou seja, o LED deve permanecer aceso por 0,5 segundo, ficando apagado por 0,5 segundo em
+                                  * seguida. Por simplicidade, vamos utilizar o próprio LED incorporado presente no Arduino UNO, o
+                                  * qual pode ser acionado pelo bit 5 da porta B (PB5).
+                                  */
                                  
                                  .DEF B0=R16
                                  .DEF CYC1=R17
                                  .DEF CYC2=R18
                                  .DEF CYC3=R19
                                  
+                                 .CSEG
+                                 
                                  .ORG 0x0000
 000000 940c 0034                 JMP main
                                  
                                  .ORG 0x0034
                                  main:
+                                 	/* Seta o portb como saida */
 000034 e001                      	LDI B0, 0x01
 000035 b904                      	OUT DDRB, B0
                                  
@@ -1015,15 +1026,15 @@ AVRASM ver. 2.2.7  C:\Users\ea871\Desktop\atividade4\atividade4\main.asm Thu Sep
 00003a 940e 003d                 	CALL delay
 00003c cff9                      	RJMP whiletrue
                                  
-                                 
-                                 delay: /* Subrotina para atraso. Gasta aproximadamente 8 milhoes de ciclos de CPU (500ms para 16 MHz) */
+                                  /* Subrotina para atraso. Gasta aproximadamente 8 milhoes de ciclos de CPU (500ms para 16 MHz) */
+                                 delay:
                                  	/* Salva os valores originas dos registradores usados na pilha */
 00003d 933f                      	PUSH CYC3
 00003e 932f                      	PUSH CYC2
 00003f 931f                      	PUSH CYC1
                                  
                                  	/* Seta os valores para consumir os ciclos necessarios de CPU */
-000040 e332                      	LDI CYC3, 50
+000040 e239                      	LDI CYC3, 41
 000041 e926                      	LDI CYC2, 150
 000042 e810                      	LDI CYC1, 128
                                  
