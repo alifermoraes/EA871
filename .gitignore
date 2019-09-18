@@ -2,7 +2,7 @@
 *.o
 
 # VSCode json config
-.vscode/
+.vs/
 
 # Zip file
 *.zip
