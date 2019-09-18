@@ -1,3 +1,11 @@
+/*
+ * RGB.h
+ *
+ * Created: 18/09/2019 09:45:40
+ *  Author: Alifer
+ */ 
+
+
 #ifndef RGB_H_
 #define RGB_H_
 

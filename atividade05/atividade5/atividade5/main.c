@@ -18,14 +18,15 @@ uint8_v_ptr pinc = (uint8_v_ptr) 0x26,
             pind = (uint8_v_ptr) 0x29;
 
 /* Ponteiros para enderecos de memoria para as interrupcoes */
-uint8_ptr eicra = 0x69,
-          eimsk = 0x3D,
-          pcicr = 0x68,
-          pcimsk1 = 0x6C;
+uint8_ptr eicra = (uint8_ptr) 0x69,
+          eimsk = (uint8_ptr) 0x3D,
+          pcicr = (uint8_ptr) 0x68,
+          pcimsk1 = (uint8_ptr) 0x6C;
 
 volatile unsigned int msec_delay = 1000;
-volatile int counter = 0;
-volatile int direction = 1;
+volatile uint8_t counter = 0;
+volatile int8_t direction = 1;
+
 
 void startup(void);
 extern void DELAY(volatile unsigned int msec);
@@ -34,13 +35,8 @@ int main(void) {
     startup();
 
     while (TRUE) {
-        *portb |= colors[counter % 8];
+        *portb = colors[counter % 8];
         counter += direction;
-
-        if (counter = -1) {
-            counter = 7;
-        }
-
         DELAY(msec_delay);
     }
 }
@@ -56,7 +52,9 @@ ISR(INT0_vect) {
 
 ISR(PCINT1_vect){
     /* Handles interrupt (direction) */
-    direction *= -1;
+    if (*pinc & 0x01) {
+        direction *= -1;
+    }
 }
 
 void startup(void) {
@@ -72,4 +70,6 @@ void startup(void) {
     *eicra |= 0x03; /* Borda de subida de INT0 gera interrupcao */
     *pcicr |= 0x02; /* Habilita interrupcao por PCINT[8..15]*/
     *pcimsk1 |= 0x01; /* Habilita interrupcao apenas em PCINT8 */
+
+	sei(); 	/* Habilita interrupcoes */
 }
