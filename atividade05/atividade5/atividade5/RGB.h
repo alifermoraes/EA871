@@ -1,10 +1,12 @@
-/*
- * RGB.h
+/**
+ * EA871 T
+ * Atividade05 - Interrupções
  *
- * Created: 18/09/2019 09:45:40
- *  Author: Alifer
- */ 
-
+ * Alifer Willians de Moraes
+ * RA: 165334
+ *
+ * Algumas definições para tornar o código mais organizado e fácil de ler.
+ */
 
 #ifndef RGB_H_
 #define RGB_H_
