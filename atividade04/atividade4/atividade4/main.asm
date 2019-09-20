@@ -1,5 +1,5 @@
 /**
- * Atividade04 - Assembly
+ * Atividade03 - GPIO
  *
  * Alifer Willians de Moraes
  * RA: 165334
@@ -27,25 +27,23 @@
 
 .ORG 0x0000
 JMP MAIN
-
 .ORG 0x0034
+
 MAIN:
     /* Define o valore de R25:R24 para simular o parâmetro que será passado pelo programa em C */
     LDI PRMLO, 0xF4
     LDI PRMHI, 0x01
 
-	/* Seta o portb como saida */
-	LDI BMASK, 0x20
-	OUT DDRB, BMASK
+    /* Seta o portb como saida */
+    LDI BMASK, 0x20
+    OUT DDRB, BMASK
 
 WHILETRUE:
-	SBI PORTB, 5
-	CALL DELAY
-	CBI PORTB, 5
-	CALL DELAY
-	RJMP WHILETRUE
-
- /* Subrotina para atraso. Gasta aproximadamente 8 milhoes de ciclos de CPU (500ms para 16 MHz) */
+    SBI PORTB, 5
+    CALL DELAY
+    CBI PORTB, 5
+    CALL DELAY
+    RJMP WHILETRUE
 
 DELAY:
     /* Salva o valor inicial dos registradores, que serão utilizados, na pilha. */
@@ -55,16 +53,17 @@ DELAY:
     PUSH PRMHI
 
     /*
-	 * Necessário incrementar R25 para que o delay base seja executado (R24 + 256 * R25), pois essa
-	 * sub brotina executa R24 + 256 * (R25 -1) vezes. (Tratando R24 e R25 como valores
+     * Necessário incrementar R25 para que o delay base seja executado (R24 + 256 * R25), pois essa
+     * sub brotina executa R24 + 256 * (R25 -1) vezes. (Tratando R24 e R25 como valores
      * independentes de 8 bits).
-	 */
+     */
     INC PRMHI
 
     /* Valores iniciais para um atraso base de aproximadamente 16_000 ciclos
      * Número total de ciclos da rotina implementada: ((R17 - 1) * 3 + 2) + ((254 * 3 + 2) + 3) * (R18 - 1)
      * R17 = 219 e R18 = 21 => 15996 ciclos + 2 ciclos de LDI = 15998 ciclos.
      */
+
 BASE_DELAY:
     LDI DL1, 219
     LDI DL2, 21
