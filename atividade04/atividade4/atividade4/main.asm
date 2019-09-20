@@ -1,5 +1,5 @@
 /**
- * Atividade03 - GPIO
+ * Atividade04 - Assembly
  *
  * Alifer Willians de Moraes
  * RA: 165334
@@ -17,52 +17,71 @@
  * qual pode ser acionado pelo bit 5 da porta B (PB5).
  */
 
-.DEF B0=R16
-.DEF CYC1=R17
-.DEF CYC2=R18
-.DEF CYC3=R19
+.DEF BMASK = R16
+.DEF DL1 = R17
+.DEF DL2 = R18
+.DEF PRMLO = R24
+.DEF PRMHI = R25
 
 .CSEG
 
 .ORG 0x0000
-JMP main
+JMP MAIN
 
 .ORG 0x0034
-main:
-	/* Seta o portb como saida */
-	LDI B0, 0x01
-	OUT DDRB, B0
+MAIN:
+    /* Define o valore de R25:R24 para simular o parâmetro que será passado pelo programa em C */
+    LDI PRMLO, 0xF4
+    LDI PRMHI, 0x01
 
-whiletrue:
-	SBI PORTB, 0
-	CALL delay
-	CBI PORTB, 0
-	CALL delay
-	RJMP whiletrue
+	/* Seta o portb como saida */
+	LDI BMASK, 0x20
+	OUT DDRB, BMASK
+
+WHILETRUE:
+	SBI PORTB, 5
+	CALL DELAY
+	CBI PORTB, 5
+	CALL DELAY
+	RJMP WHILETRUE
 
  /* Subrotina para atraso. Gasta aproximadamente 8 milhoes de ciclos de CPU (500ms para 16 MHz) */
-delay:
-	/* Salva os valores originas dos registradores usados na pilha */
-	PUSH CYC3
-	PUSH CYC2
-	PUSH CYC1
 
-	/* Seta os valores para consumir os ciclos necessarios de CPU */
-	LDI CYC3, 41
-	LDI CYC2, 150
-	LDI CYC1, 128
+DELAY:
+    /* Salva o valor inicial dos registradores, que serão utilizados, na pilha. */
+    PUSH DL1
+    PUSH DL2
+    PUSH PRMLO
+    PUSH PRMHI
 
-cycles:
-	DEC CYC1
-	BRNE cycles
-	DEC CYC2
-	BRNE cycles
-	DEC CYC3
-	BRNE cycles
+    /*
+	 * Necessário incrementar R25 para que o delay base seja executado (R24 + 256 * R25), pois essa
+	 * sub brotina executa R24 + 256 * (R25 -1) vezes. (Tratando R24 e R25 como valores
+     * independentes de 8 bits).
+	 */
+    INC PRMHI
 
-	/* Restaura os valores originais dos registradores*/
-	POP CYC1
-	POP CYC2
-	POP CYC3
+    /* Valores iniciais para um atraso base de aproximadamente 16_000 ciclos
+     * Número total de ciclos da rotina implementada: ((R17 - 1) * 3 + 2) + ((254 * 3 + 2) + 3) * (R18 - 1)
+     * R17 = 219 e R18 = 21 => 15996 ciclos + 2 ciclos de LDI = 15998 ciclos.
+     */
+BASE_DELAY:
+    LDI DL1, 219
+    LDI DL2, 21
 
-	RET /* retorna da subrotina delay */
+LOOP:
+    DEC DL1
+    BRNE LOOP
+    DEC DL2
+    BRNE LOOP
+    DEC PRMLO
+    BRNE BASE_DELAY
+    DEC PRMHI
+    BRNE BASE_DELAY
+
+    /* Restaura os valores originais dos registradores */
+    POP PRMHI
+    POP PRMLO
+    POP DL2
+    POP DL1
+RET
