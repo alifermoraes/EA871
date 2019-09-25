@@ -26,7 +26,7 @@
 
 uint8_t colors[] = {OFF, RED, GREEN, BLUE, YELLOW, MAGENTA, CYAN, WHITE};
 
-typedef uint8_t volatile * uint8_v_ptr;
+typedef volatile uint8_t * v_uint8_ptr;
 typedef uint8_t * uint8_ptr;
 
 #endif /* RGB_H_ */
