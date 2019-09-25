@@ -20,7 +20,7 @@ DELAY:
     PUSH R24
     PUSH R25
 
-    /*
+    /**
      * Necessário incrementar R25 para que o delay base seja executado (R24 + 256 * R25), pois essa
      * sub-rotina executa R24 + 256 * (R25 - 1) vezes. (Tratando R24 e R25 como valores
      * independentes de 8 bits)
@@ -28,7 +28,7 @@ DELAY:
      
     INC R25
 
-    /*
+    /**
      * Valores iniciais para um atraso base de aproximadamente 16_000 ciclos
      * Número total de ciclos da rotina implementada: ((R16 - 1) * 3 + 2) + ((254 * 3 + 2) + 3) * (R17 - 1)
      * R16 = 219 e R17 = 21 => 15996 ciclos + 2 ciclos de LDI = 15998 ciclos.
