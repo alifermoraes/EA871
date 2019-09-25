@@ -43,8 +43,8 @@ uint8_ptr portb = (uint8_ptr) 0x25,
           ddrc = (uint8_ptr) 0x27,
           ddrd = (uint8_ptr) 0x2A;
 
-uint8_v_ptr pinc = (uint8_v_ptr) 0x26,
-            pind = (uint8_v_ptr) 0x29;
+v_uint8_ptr pinc = (v_uint8_ptr) 0x26,
+            pind = (v_uint8_ptr) 0x29;
 
 /* Ponteiros para endereços de memoria para as interrupções. */
 uint8_ptr eicra = (uint8_ptr) 0x69,
@@ -71,7 +71,7 @@ int main(void) {
     }
 }
 
-/* 
+/**
  * Com a utilização do Schmitt trigger para corrigir o problema de debouncing do botão, o sinal
  * lido pelos pinos conectados ao botão é 0 quando o botão não é pressionado e 1 quando o botão
  * é pressionado.
@@ -89,7 +89,7 @@ ISR(INT0_vect) {
 
 /* Lida com a interrupção PCINT8 (direção). */
 ISR(PCINT1_vect){
-	/*
+	/**
 	 * Como PCINT gera interrupção sempre que há mudança no estado lógico, é necessário corrigir
 	 * via software para que essa interrupção ocorra apenas ao apertar o botão e não ao solta-lo.
 	 */
