@@ -63,8 +63,8 @@ int main(void) {
     startup();
 
     while (TRUE) {
-		/* Percorre o vetor que armazena as combinações de cores do LED RGB. */
-		*portb &= 0xF8;
+        /* Percorre o vetor que armazena as combinações de cores do LED RGB. */
+        *portb &= 0xF8;
         *portb |= colors[counter % 8];
         counter += direction;
         DELAY(msec_delay);
@@ -86,27 +86,25 @@ ISR(INT0_vect) {
     }
 }
 
-
 /* Lida com a interrupção PCINT8 (direção). */
 ISR(PCINT1_vect){
-	/**
-	 * Como PCINT gera interrupção sempre que há mudança no estado lógico, é necessário corrigir
-	 * via software para que essa interrupção ocorra apenas ao apertar o botão e não ao solta-lo.
-	 */
+    /**
+     * Como PCINT gera interrupção sempre que há mudança no estado lógico, é necessário corrigir
+     * via software para que essa interrupção ocorra apenas ao apertar o botão e não ao solta-lo.
+     */
     if (*pinc & 0x01) {
         direction *= -1;
     }
 }
 
-
 void startup(void) { /* Executa as instruções para configuração inicial do microcontrolador. */
-	/* Configurações de interrupções. */
-	*eimsk |= 0x01; /* Habilita interrupção por INT0. */
-	*eicra |= 0x03; /* Configura INT0 para gerar interrupções apenas na borda de subida. */
-	*pcicr |= 0x02; /* Habilita interrupção por PCINT[8..15]. */
-	*pcimsk1 |= 0x01; /* Habilita interrupção apenas em PCINT8. */
-	sei(); 	/* Habilita interrupções. */
-	
+    /* Configurações de interrupções. */
+    *eimsk |= 0x01; /* Habilita interrupção por INT0. */
+    *eicra |= 0x03; /* Configura INT0 para gerar interrupções apenas na borda de subida. */
+    *pcicr |= 0x02; /* Habilita interrupção por PCINT[8..15]. */
+    *pcimsk1 |= 0x01; /* Habilita interrupção apenas em PCINT8. */
+    sei(); /* Habilita interrupções. */
+
     /* Definições de direção dos ports (entrada/saída). */
     *ddrb |= 0x07;
     *ddrc &= 0xFE;
