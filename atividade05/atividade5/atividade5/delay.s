@@ -25,7 +25,6 @@ DELAY:
      * sub-rotina executa R24 + 256 * (R25 - 1) vezes. (Tratando R24 e R25 como valores
      * independentes de 8 bits)
      */
-     
     INC R25
 
     /**
@@ -33,7 +32,6 @@ DELAY:
      * Número total de ciclos da rotina implementada: ((R16 - 1) * 3 + 2) + ((254 * 3 + 2) + 3) * (R17 - 1)
      * R16 = 219 e R17 = 21 => 15996 ciclos + 2 ciclos de LDI = 15998 ciclos.
      */
-
 BASE_DELAY:
     LDI R16, 219
     LDI R17, 21
