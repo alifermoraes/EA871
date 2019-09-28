@@ -44,10 +44,11 @@ void USART_Init(uint16_t ubrr) {
    UBRR0H = (uint8_t) ((ubrr >> 8) & 0x000F);
    UBRR0L = (uint8_t) (ubrr & 0x00FF);
    
-   /* Habilita Rx e Tx */
-   UCSR0B |= 0x18;
+   /* Habilita Tx */
+   UCSR0B |= 0x08;
    
-   /* Set frame format: 8data, 2stop bit */
+   /**
+    *  Double speed desabilitado, data frame de 8 bits, 1 stop bit, bit de paridade desabilitado */
    // UCSR0C = (1<<USBS0)|(3<<UCSZ00);
 }
 

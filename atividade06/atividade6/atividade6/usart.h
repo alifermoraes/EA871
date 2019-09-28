@@ -30,8 +30,8 @@
 typedef volatile uint8_t* v_uint8_ptr;
 typedef uint8_t* uint8_ptr;
 
-char message[] = "Some message";
-char success[] = "Mensagem transmitida com sucesso!\n";
+uint8_t message[] = "Some message\n";
+uint8_t success[] = "Mensagem transmitida com sucesso!\n";
 
 void USART_Init(uint16_t ubrr);
 void USART_Transmit(uint8_t data);
