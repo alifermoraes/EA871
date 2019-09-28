@@ -29,11 +29,11 @@ DELAY:
 
     /**
      * Valores iniciais para um atraso base de aproximadamente 16_000 ciclos
-     * Número total de ciclos da rotina implementada: ((R16 - 1) * 3 + 2) + ((254 * 3 + 2) + 3) * (R17 - 1)
-     * R16 = 219 e R17 = 21 => 15996 ciclos + 2 ciclos de LDI = 15998 ciclos.
+     * Número total de ciclos da rotina implementada: 3 * R16 + 770 * R17 - 769.
+     * R16 = 198 e R17 = 21 => 15995 ciclos + 2 ciclos de LDI = 15997 ciclos.
      */
 BASE_DELAY:
-    LDI R16, 219
+    LDI R16, 198
     LDI R17, 21
 
 LOOP:
