@@ -40,10 +40,11 @@ double count_base_cycles(uint8_t r1, uint8_t r2) {
 
 double count_parameter_cycles(uint8_t r1, uint8_t r2, uint8_t r24, uint8_t r25) {
     double counter = 9.0; /* R1, R2, R24, R25 PUSH/POP; INC R25 */
+    double base_cycles = count_base_cycles(r1, r2);
     r25++;
     
     while(r25) {
-        counter += count_base_cycles(r1, r2);
+        counter += base_cycles;
 
         r24--;
         if (r24) {
