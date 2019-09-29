@@ -4,5 +4,8 @@
 # VSCode json config
 .vs/
 
+# Atmel Studio Debug
+.Debug/
+
 # Zip file
 *.zip
