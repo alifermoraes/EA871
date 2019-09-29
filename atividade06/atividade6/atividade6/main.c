@@ -40,6 +40,9 @@
 #include "usart.h"
 #include <util/delay.h>
 
+uint8_t message[] = "Some message\n";
+uint8_t success[] = "Mensagem transmitida com sucesso!\n";
+
 int main(void) {
     int i;
 

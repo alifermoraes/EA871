@@ -40,22 +40,37 @@
 #include "usart.h"
 
 void USART_Init(uint16_t ubrr) {
-   /* Configura o BAUD */
-   UBRR0H = (uint8_t) ((ubrr >> 8) & 0x000F);
-   UBRR0L = (uint8_t) (ubrr & 0x00FF);
+   /* Configura o BAUD Rate. */
+   UBRR0H = (uint8_t) ((ubrr >> 8) & 0xF);
+   UBRR0L = (uint8_t) (ubrr & 0xFF);
+
+   /* Desabilita os modos de transmissão double speed e multi processador. */
+   UCSR0A &= 0xFC;
    
-   /* Habilita Tx */
+   /* Desabilita interrupções. */
+   UCSR0B &= 0x1F;
+   
+   /* Habilita Tx. */
    UCSR0B |= 0x08;
-   
-   /**
-    *  Double speed desabilitado, data frame de 8 bits, 1 stop bit, bit de paridade desabilitado */
-   // UCSR0C = (1<<USBS0)|(3<<UCSZ00);
+
+   /* Modo assíncrono. */
+   UCSR0C &= 0x3E;
+
+   /* Desabilita modo de paridade */
+   UCSR0C &= 0xCF;
+
+   /* 1 stop bit */
+   UCSR0C &= 0xF7;
+
+   /* Frame com 8 bits de dados */
+   UCSR0B &= 0xFB;
+   UCSR0C |= 0x06;
 }
 
 void USART_Transmit(uint8_t data) {
-   /* Espera o buffer ficar vazio */
+   /* Espera o buffer ficar vazio. */
    while (!(UCSR0A & 0x20));
 
-   /* Coloca o dado no buffer e o envia */
+   /* Carregad o dado no buffer e envia-o. */
    UDR0 = data;
 }

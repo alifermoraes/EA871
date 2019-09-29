@@ -15,8 +15,8 @@
 
 #define F_CPU 16000000UL
 #define FOSC F_CPU
-#define BAUD 9600
-#define MYUBRR ((FOSC/(16 * BAUD)) - 1)
+#define BAUD 38400U
+#define MYUBRR FOSC/BAUD/16 - 1
 
 #define UDR0 (*((v_uint8_ptr) 0xC6))
 #define UBRR0H (*((v_uint8_ptr) 0xC5))
@@ -29,9 +29,6 @@
 
 typedef volatile uint8_t* v_uint8_ptr;
 typedef uint8_t* uint8_ptr;
-
-uint8_t message[] = "Some message\n";
-uint8_t success[] = "Mensagem transmitida com sucesso!\n";
 
 void USART_Init(uint16_t ubrr);
 void USART_Transmit(uint8_t data);
