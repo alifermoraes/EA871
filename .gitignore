@@ -5,7 +5,7 @@
 .vs/
 
 # Atmel Studio Debug
-.Debug/
+Debug/
 
 # Zip file
 *.zip
