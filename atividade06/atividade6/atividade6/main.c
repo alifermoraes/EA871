@@ -40,7 +40,7 @@
 #include "usart.h"
 #include <util/delay.h>
 
-uint8_t message[] = "Some message\n";
+uint8_t message[] = "There are the rushing waves\nmountains of molecules\neach stupidly minding its own business\ntrillions apart\nyet forming white surf in unison.\n\nAges on ages\nbefore any eyes could see\nyear after year\nthunderously pounding the shore as now.\nFor whom, for what?\nOn a dead planet\nwith no life to entertain.\n\nNever at rest\ntortured by energy\nwasted prodigiously by the sun\npoured into space\nA mite makes the sea roar.\n\nDeep in the sea\nall molecules repeat\nthe patterns of one another\ntill complex new ones are formed.\nThey make others like themselves\nand a new dance starts.\n\nGrowing in size and complexity\nliving things\nmasses of atoms\nDNA, protein\ndancing a pattern ever more intricate.\n\nOut of the cradle\nonto dry land\nhere it is\nstanding:\natoms with consciousness;\nmatter with curiosity.\n\nStands at the sea,\nwonders at wondering: I\na universe of atoms\nan atom in the universe.\n\nRichard P. Feynman\n\n";
 uint8_t success[] = "Mensagem transmitida com sucesso!\n";
 
 int main(void) {
