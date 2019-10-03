@@ -17,8 +17,8 @@ int main() {
 
   n_bits = 0;
 
-  while (tmp != 0x00) {
-      if ((tmp | 0x01) == tmp) { /* Checa se o bit menos significativo de tmp é igual à 1. Caso seja, adiciona 1 à contagem de bits */
+  while (tmp) {
+      if (tmp & 0x01) { /* Checa se o bit menos significativo de tmp é igual à 1. Caso seja, adiciona 1 à contagem de bits */
           n_bits++;
       }
 
