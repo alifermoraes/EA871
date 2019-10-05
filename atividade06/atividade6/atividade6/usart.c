@@ -27,8 +27,8 @@ void USART_Init(uint16_t ubrr) {
    /* Modo assíncrono. */
    UCSR0C &= 0x3E;
 
-   /* Desabilita modo de paridade */
-   UCSR0C &= 0xCF;
+   /* Habilita bit de paridade - Paridade ímpar. */
+   UCSR0C |= 0x30;
 
    /* 1 stop bit */
    UCSR0C &= 0xF7;
