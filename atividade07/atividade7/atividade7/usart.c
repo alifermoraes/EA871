@@ -9,3 +9,11 @@
  */
 
 #include "usart.h"
+
+void USART_Init(uint16_t ubrr) {
+   /* Configura o BAUD Rate. */
+   UBRR0H = (uint8_t) ((ubrr >> 8) & 0xF);
+   UBRR0L = (uint8_t) (ubrr & 0xFF);
+
+       
+}

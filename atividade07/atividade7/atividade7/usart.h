@@ -5,7 +5,7 @@
  * Alifer Willians de Moraes
  * RA: 165334
  *
- * Definições de ponteiros e funções para utilizar comunicação usart do atmega328p
+ * Definições de ponteiros e funções para utilizar comunicação usart do atmega328p.
  */ 
 
 #ifndef USART_H
