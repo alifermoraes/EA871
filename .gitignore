@@ -3,6 +3,7 @@
 
 # VSCode json config
 .vs/
+.vscode/
 
 # Atmel Studio Debug
 Debug/

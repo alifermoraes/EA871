@@ -18,17 +18,13 @@
 #define BAUD    9600U
 #define UBRR    (FOSC/BAUD/16 - 1)
 
-/* USART registers */
+/* USART registers. */
 #define UDR0    (*((uint8_ptr) 0xC6))
 #define UBRR0H  (*((uint8_ptr) 0xC5))
 #define UBRR0L  (*((uint8_ptr) 0xC4))
 #define UCSR0C  (*((uint8_ptr) 0xC2))
 #define UCSR0B  (*((uint8_ptr) 0xC1))
 #define UCSR0A  (*((v_uint8_ptr) 0xC0))
-
-/* PORTB registers */
-#define DDRB    (*((uint8_ptr)) 0x24);
-#define PORTB   (*((uint8_ptr)) 0x25);
 
 #define TRUE 1
 

@@ -14,6 +14,30 @@ void USART_Init(uint16_t ubrr) {
    /* Configura o BAUD Rate. */
    UBRR0H = (uint8_t) ((ubrr >> 8) & 0xF);
    UBRR0L = (uint8_t) (ubrr & 0xFF);
+   /* Configura o BAUD Rate. */
+   UBRR0H = (uint8_t) ((ubrr >> 8) & 0xF);
+   UBRR0L = (uint8_t) (ubrr & 0xFF);
 
-       
+   /* Desabilita os modos de transmissão double speed e multi processador. */
+   UCSR0A &= 0xDC;
+   
+   /**
+    * Habilita interrupções Rx e Tx.
+    * Habilita Tx e Rx.
+    */
+   UCSR0B |= 0xC0;
+   UCSR0B |= 0x18;
+
+   /**
+    * Modo assíncrono.
+    * Desabilita bit de paridade
+    * 2 stop bits
+    */
+   UCSR0C &= 0x3E;
+   UCSR0C &= 0xCF;
+   UCSR0C |= 0x08;
+
+   /* Frame com 8 bits de dados */
+   UCSR0B &= 0xFB;
+   UCSR0C |= 0x06;   
 }

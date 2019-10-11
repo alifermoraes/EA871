@@ -9,3 +9,34 @@
  */
 
 #include "list.h"
+
+List list_create(void) {
+    List list;
+
+    list.head = 0;
+    list.size = 0;
+
+    return list;
+}
+
+void list_push(List *list, uint8_t data) {
+    uint8_t pos;
+
+    if (list->size < MAX_SIZE) {
+        pos = (list->head + list->size) % MAX_SIZE;
+        list->V[pos] = data;
+        list->size++;
+    }
+}
+
+uint8_t list_eject(List *list) {
+    uint8_t data = 0xFF;
+
+    if (list->size) {
+        data = list->V[list->head];
+        list->head = (list->head + 1) % MAX_SIZE;
+        list->size--;
+    }
+
+    return data;
+}
