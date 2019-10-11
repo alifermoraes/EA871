@@ -1,6 +1,6 @@
 /**
  * EA871 T
- * Atividade05 - Interrupções
+ * Atividade06 - Interface Serial e UART
  *
  * Alifer Willians de Moraes
  * RA: 165334
