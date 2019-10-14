@@ -8,6 +8,7 @@
  * Definições de funções de interação com o LED RGB.
  */ 
 
+#include <stdint.h>
 
 #ifndef RGB_H
 #define RGB_H
@@ -20,5 +21,7 @@
 #define MAGENTA 0x05
 #define CYAN    0x06
 #define WHITE   0x07
+
+uint8_t rgb_decoder(uint8_t cmd);
 
 #endif /* RGB_H */

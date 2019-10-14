@@ -10,15 +10,6 @@
 
 #include "list.h"
 
-List list_create(void) {
-    List list;
-
-    list.head = 0;
-    list.size = 0;
-
-    return list;
-}
-
 void list_push(List *list, uint8_t data) {
     uint8_t pos;
 

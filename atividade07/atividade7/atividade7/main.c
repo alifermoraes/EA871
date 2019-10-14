@@ -18,44 +18,50 @@
 #include <util/delay.h>
 
 /* PORTB registers. */
-#define DDRB    (*((uint8_ptr)) 0x24);
-#define PORTB   (*((uint8_ptr)) 0x25);
-
-volatile List list = list_create();
+#define DDR_B	(*((uint8_ptr) 0x24))
+#define PORT_B	(*((uint8_ptr) 0x25))
 
 uint8_t empty[] = "Vazio!\n";
-uint8_t command[7][40] = { "Comando incorreto\n",
-                           "Comando: Acender LED - cor vermelha\n",
-                           "Comando: Acender LED - cor verde\n",
-                           "Comando: Acender LED - cor azul\n",
-                           "Comando: Acender LED - cor amarela\n",
-                           "Comando: Acender LED - cor ciano\n",
-                           "Comando: Acender LED - cor magenta\n",
-                           "Comando: Acender LED - cor branca\n" };
-uint8_t cmd;
+uint8_t command[8][40] = {"Comando incorreto\n",
+	"Comando: Acender LED - cor vermelha\n",
+	"Comando: Acender LED - cor verde\n",
+	"Comando: Acender LED - cor amarela\n",
+	"Comando: Acender LED - cor azul\n",
+	"Comando: Acender LED - cor magenta\n",
+	"Comando: Acender LED - cor ciano\n",
+"Comando: Acender LED - cor branca\n"};
+
+List list = {{},0,0};
 volatile uint8_t i = 0;
+uint8_t cmd, data;
 
 void startup(void);
 
 int main(void) {
-    uint8_t data;
 
     startup();
     USART_Init(UBRR);
 
     while (TRUE) {
         if (list.size) {
-            data = list_push(&list);
+            data = list_eject(&list);
             data = rgb_decoder(data);
+            PORT_B &= 0xF8;
+            PORT_B |= data;
 
-            while (command[i]);
-            i = 0;
+            while (command[data][i]) {
+            }
+        } else {
+            while (empty[i]) {
+            }
         }
+
+        i = 0;
     }
 }
 
 ISR (USART_TX_vect) {
-    UDR0 = command[i];
+    UDR0 = command[data][i];
     i++;
 }
 
@@ -66,7 +72,8 @@ ISR (USART_RX_vect) {
 
 void startup(void) {
     /* Define PB0, PB1 e PB2 como saída. */
-    DDRD |= 0x07;
+    DDR_B |= 0x07;
+    PORT_B &= 0xF8;
 
     /* Habilita interrupções. */
     sei();

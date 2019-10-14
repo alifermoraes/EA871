@@ -8,7 +8,6 @@
  * Definições de funções de lista circular.
  */ 
 
-
 #ifndef LIST_H
 #define LIST_H
 
@@ -21,5 +20,8 @@ typedef struct {
     uint8_t head;
     uint8_t size;
 } List;
+
+void list_push(List *list, uint8_t data);
+uint8_t list_eject(List *list);
 
 #endif /* LIST_H */
