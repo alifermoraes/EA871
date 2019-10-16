@@ -21,7 +21,7 @@
 #define DDR_B	(*((uint8_ptr) 0x24))
 #define PORT_B	(*((uint8_ptr) 0x25))
 
-uint8_t message[9][40] = {"Vazio!\n",
+uint8_t message[9][37] = {"Vazio!\n",
                           "Comando: Acender LED - cor vermelha\n",
                           "Comando: Acender LED - cor verde\n",
                           "Comando: Acender LED - cor amarela\n",
@@ -31,7 +31,7 @@ uint8_t message[9][40] = {"Vazio!\n",
                           "Comando: Acender LED - cor branca\n",
                           "Comando incorreto\n"};
 
-List list = {{},0,0};
+List list = {NULL, NULL, 0};
 uint8_t data, i = 1;
 
 void startup(void);

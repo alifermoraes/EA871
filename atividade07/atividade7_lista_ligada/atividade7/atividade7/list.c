@@ -11,22 +11,35 @@
 #include "list.h"
 
 void list_push(List *list, uint8_t data) {
-    uint8_t pos;
+    Node *new;
 
-    if (list->size < MAX_SIZE) {
-        pos = (list->head + list->size) % MAX_SIZE;
-        list->V[pos] = data;
-        list->size++;
+    new = malloc(sizeof(Node));
+    if (!new) return;
+
+    new->data = data;
+    new->next = NULL;
+
+    if (!list->size) {
+        list->head = new;
+    } else {
+        list->tail->next = new;
     }
+
+    list->tail = new;
+    list->size++;
 }
 
 uint8_t list_eject(List *list) {
+    Node *tmp;
     uint8_t data = 0;
 
     if (list->size) {
-        data = list->V[list->head];
-        list->head = (list->head + 1) % MAX_SIZE;
+        tmp = list->head;
+        data = tmp->data;
+        list->head = tmp->next;
         list->size--;
+
+        free(tmp);
     }
 
     return data;
