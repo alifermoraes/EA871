@@ -32,7 +32,7 @@ uint8_t message[9][37] = {"Vazio!\n",
                           "Comando incorreto\n"};
 
 List list = {NULL, NULL, 0};
-uint8_t data, i = 1;
+uint8_t data, i = 0;
 
 void startup(void);
 
@@ -42,6 +42,8 @@ int main(void) {
     USART_Init(UBRR);
 
     while (TRUE) {
+        UCSR0B |= 0x40; /* Habilita interrupção TX Complete. */
+
         if (list.size) { /* Se houver algum valor no buffer */
             /**
              * Remove o primeiro item do buffer circular e converte seu valor em sua respectiva
@@ -49,15 +51,11 @@ int main(void) {
              */
             data = rgb_decoder(list_eject(&list));
             PORT_B |= data;
-            UDR0 = message[data][0];
+            _delay_ms(200);
+            PORT_B &= 0xF8;
         } else { /* Buffer vazio. */
             data = EMPTY;
-            UDR0 = message[data][0];
         }
-
-        UCSR0B |= 0x40; /* Habilita interrupção TX Complete. */
-        _delay_ms(200);
-        PORT_B &= 0xF8; /* Apaga o LED RGB. */
     }
 }
 
@@ -67,7 +65,7 @@ ISR (USART_TX_vect) {
 	
     if (!message[data][i]) {
         UCSR0B &= 0xBF; /* Desabilita interrupção TX Complete. */
-        i = 1;
+        i = 0;
     }
 }
 
@@ -80,4 +78,5 @@ void startup(void) {
     PORT_B &= 0xF8; /* Inicia o LED RGB apagado. */
 
     sei(); /* Habilita interrupções. */
+    UDR0 = 0x30; /* Trigger para interrupção. */
 }
