@@ -44,6 +44,7 @@ int main(void) {
     while (TRUE) {
         UCSR0B |= 0x40; /* Habilita interrupção TX Complete. */
         _delay_ms(50); /* Atraso para estabilizar as operações no buffer circular */
+
         if (list.size) { /* Se houver algum valor no buffer */
             /**
              * Remove o primeiro item do buffer circular e converte seu valor em sua respectiva
@@ -78,5 +79,5 @@ void startup(void) {
     PORT_B &= 0xF8; /* Inicia o LED RGB apagado. */
 
     sei(); /* Habilita interrupções. */
-    UDR0 = 0x30; /* Envia um caracter ao UDRE para dar trigger nas interrupções */
+    UDR0 = 0x30; /* Envia um caractere via USART para gerar trigger de interrupção TX Complete. */
 }

@@ -78,5 +78,5 @@ void startup(void) {
     PORT_B &= 0xF8; /* Inicia o LED RGB apagado. */
 
     sei(); /* Habilita interrupções. */
-    UDR0 = 0x30; /* Trigger para interrupção. */
+    UDR0 = 0x30; /* Envia um caractere via USART para gerar trigger de interrupção TX Complete. */
 }
