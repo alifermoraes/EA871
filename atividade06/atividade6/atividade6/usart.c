@@ -19,22 +19,22 @@ void USART_Init(uint16_t ubrr) {
    UCSR0A &= 0xDC;
    
    /**
-    * Habilita interrupções Rx e Tx.
-    * Habilita Tx e Rx.
+    * Desabilita interrupções da USART.
+    * Habilita Tx.
     */
-   UCSR0B |= 0xC0;
-   UCSR0B |= 0x18;
+   UCSR0B &= 0x1F;
+   UCSR0B |= 0x08;
 
    /**
     * Modo assíncrono.
-    * Desabilita bit de paridade
-    * 2 stop bits
+    * Habilita bit de paridade. Ímpar.
+    * 1 stop bit.
     */
    UCSR0C &= 0x3E;
-   UCSR0C &= 0xCF;
-   UCSR0C |= 0x08;
+   UCSR0C |= 0x30;
+   UCSR0C &= 0xF7;
 
-   /* Frame com 8 bits de dados */
+   /* Frame com 8 bits de dados. */
    UCSR0B &= 0xFB;
    UCSR0C |= 0x06;
 }
