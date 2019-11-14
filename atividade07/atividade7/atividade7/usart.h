@@ -32,6 +32,5 @@ typedef volatile uint8_t* v_uint8_ptr;
 typedef uint8_t* uint8_ptr;
 
 void USART_Init(uint16_t ubrr);
-void USART_Transmit(uint8_t data);
 
 #endif /* USART_H */
