@@ -23,10 +23,10 @@
 
 typedef struct waveform {
     uint8_t *waveform;
-    uint8_t message[35];
-    int delay;
+    uint8_t *message;
+    uint16_t delay;
 } Waveform;
 
-void waveform_get(int waveform);
+void waveform_get(int wf, Waveform *waveform);
 
 #endif /* WAVEFORM_H */

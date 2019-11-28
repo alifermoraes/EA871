@@ -45,25 +45,57 @@
 #include "waveform.h"
 #include <avr/interrupt.h>
 
+Waveform waveform;
+
+volatile uint8_t i = 0, j = 0;
+volatile uint16_t delay_ms = 0;
+uint8_t delay_10us = 0;
+
 int main(void) {
     
     TIMER_config();
     USART_config(UBRR);
     sei();
+    waveform_get(NONE, &waveform);
+    DDRB = 0x20;
 
     while (TRUE) {
-        /* Repeat */
+        if (delay_ms > waveform.delay) {
+            PORTB ^= 0x20;
+            delay_ms = 0;
+        }
     }
 }
 
-ISR(TIMER2_COMPB_vect) {
+ISR(TIMER2_OVF_vect) {
+    OCR2A = waveform.waveform[i];
+    i = (i + 1) % 200;
+}
 
+ISR(TIMER2_COMPB_vect) {
+    delay_10us++;
+
+    if (delay_10us > 99) {
+        delay_ms++;
+        delay_10us = 0;
+    }
 }
 
 ISR(USART_TX_vect) {
+    UDR0 = waveform.message[j];
+    j++;
 
+    if (!waveform.message[j]) {
+        j = 1;
+        UCSR0B &= 0xBF;
+    }
 }
 
 ISR(USART_RX_vect) {
-
+    waveform_get(UDR0, &waveform);
+    PORTB &= 0xDF;
+    i = 0;
+    
+    UCSR0B |= 0x40; /* Habilita interrupção TX Complete. */
+    UDR0 = waveform.message[0];
 }

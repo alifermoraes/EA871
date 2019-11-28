@@ -17,6 +17,7 @@
 #define TCCR2A  (*((uint8_ptr) 0xB0))
 #define TCCR2B  (*((uint8_ptr) 0xB1))
 #define OCR2A   (*((uint8_ptr) 0xB3))
+#define OCR2B   (*((uint8_ptr) 0xB4))
 #define TIMSK2  (*((uint8_ptr) 0x70))
 
 typedef uint8_t* uint8_ptr;
