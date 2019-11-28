@@ -4,8 +4,6 @@
  *
  * Alifer Willians de Moraes
  * RA: 165334
- *
- * Description
  */
 
 #ifndef TIMER_H
