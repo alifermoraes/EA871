@@ -51,6 +51,9 @@ volatile uint8_t i = 0, j = 0;
 volatile uint16_t delay_ms = 0;
 uint8_t delay_10us = 0;
 
+volatile uint8_t waveform_received_flag = 0;
+volatile uint8_t waveform_char;
+
 int main(void) {
     
     TIMER_config();
@@ -63,6 +66,16 @@ int main(void) {
         if (delay_ms > waveform.delay) {
             PORTB ^= 0x20;
             delay_ms = 0;
+        }
+
+        if (waveform_received_flag) {
+            waveform_get(waveform_char, &waveform);
+            i = 0;
+            PORTB &= 0xDF;
+
+            UCSR0B |= 0x40; /* Habilita interrupção TX Complete. */
+            UDR0 = waveform.message[0];
+            waveform_received_flag = 0;
         }
     }
 }
@@ -92,10 +105,6 @@ ISR(USART_TX_vect) {
 }
 
 ISR(USART_RX_vect) {
-    waveform_get(UDR0, &waveform);
-    PORTB &= 0xDF;
-    i = 0;
-    
-    UCSR0B |= 0x40; /* Habilita interrupção TX Complete. */
-    UDR0 = waveform.message[0];
+    waveform_received_flag = 1;
+    waveform_char = UDR0;    
 }
